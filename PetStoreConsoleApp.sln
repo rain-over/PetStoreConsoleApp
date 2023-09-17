@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStoreConsoleApp", "PetStoreConsoleApp.csproj", "{F83E6934-7492-472B-A000-0C4165554FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStoreConsoleApp.Test", "..\PetStoreConsoleApp.Test\PetStoreConsoleApp.Test.csproj", "{DA8676DF-82A0-4600-9AC0-BB25AB86A602}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F83E6934-7492-472B-A000-0C4165554FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83E6934-7492-472B-A000-0C4165554FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F83E6934-7492-472B-A000-0C4165554FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8676DF-82A0-4600-9AC0-BB25AB86A602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8676DF-82A0-4600-9AC0-BB25AB86A602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8676DF-82A0-4600-9AC0-BB25AB86A602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8676DF-82A0-4600-9AC0-BB25AB86A602}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
