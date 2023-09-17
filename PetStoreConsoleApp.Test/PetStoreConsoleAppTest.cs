@@ -1,5 +1,4 @@
 using Moq;
-using System.Collections;
 
 namespace PetStoreConsoleApp;
 
@@ -27,87 +26,49 @@ public class PetStoreConsoleAppTest
     }
 
     [Fact]
-    public void PetStoreService_GetAvailablePets()
+    public async Task PetStoreService_GetAvailablePets()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePets()).Returns(_mockPets);
+        mockedPets.Setup(svc => svc.GetAvailablePets()).ReturnsAsync(_mockPets);
 
         var petStoreController = new PetStoreController(mockedPets.Object);
-        var pets = petStoreController.GetAvailablePets();
+        var pets = await petStoreController.GetAvailablePets();
 
         Assert.NotEmpty(pets);
     }
 
     [Fact]
-    public void PetStoreService_GetAvailablePetsByCategory()
+    public async Task PetStoreService_GetAvailablePetsByCategory()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).Returns(_mockPets);
+        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).ReturnsAsync(_mockPets);
 
         var petStoreController = new PetStoreController(mockedPets.Object);
-        var pets = petStoreController.GetAvailablePetsByCategory();
+        var pets = await petStoreController.GetAvailablePetsByCategory();
 
         Assert.NotEmpty(pets);
         //assert sorting
     }
 
     [Fact]
-    public void PetStoreService_GetAvailablePets_ThrowsExceptionOnError()
+    public async Task PetStoreService_GetAvailablePets_ThrowsExceptionOnError()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePets()).Throws(new Exception("Error"));
+        mockedPets.Setup(svc => svc.GetAvailablePets()).ThrowsAsync(new Exception("Error"));
 
         var petStoreController = new PetStoreController(mockedPets.Object);
 
-        Assert.Throws<Exception>(() => petStoreController.GetAvailablePets());
+        await Assert.ThrowsAsync<Exception>(() => petStoreController.GetAvailablePets());
     }
 
     [Fact]
-    public void PetStoreService_GetAvailablePetsByCategory_ThrowsExceptionOnError()
+    public async Task PetStoreService_GetAvailablePetsByCategory_ThrowsExceptionOnError()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).Throws(new Exception("Error"));
+        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).ThrowsAsync(new Exception("Error"));
 
         var petStoreController = new PetStoreController(mockedPets.Object);
 
-        Assert.Throws<Exception>(() => petStoreController.GetAvailablePetsByCategory());
+        await Assert.ThrowsAsync<Exception>(() => petStoreController.GetAvailablePetsByCategory());
     }
-}
-public class PetStoreController
-{
-    private IPetStoreService _petStoreService;
-
-    public PetStoreController(IPetStoreService petStoreService)
-    {
-        _petStoreService = petStoreService;
-    }
-
-    public List<Pet> GetAvailablePets()
-    {
-        return _petStoreService.GetAvailablePets();
-    }
-
-    public List<Pet> GetAvailablePetsByCategory()
-    {
-        return _petStoreService.GetAvailablePetsByCategory();
-    }
-}
-
-public interface IPetStoreService
-{
-    public List<Pet> GetAvailablePets();
-    public List<Pet> GetAvailablePetsByCategory();
-}
-
-public class Pet
-{
-    public long Id { get; set; }
-    public string Name { get; set; }
-    public Category Category { get; set; }
-}
-
-public class Category
-{
-    public long Id { get; set; }
-    public string Name { get; set; }
 }
