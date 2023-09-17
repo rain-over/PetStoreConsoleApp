@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Moq;
 
 namespace PetStoreConsoleApp;
@@ -34,20 +35,20 @@ public class PetStoreConsoleAppTest
         var petStoreController = new PetStoreController(mockedPets.Object);
         var pets = await petStoreController.GetAvailablePets();
 
-        Assert.NotEmpty(pets);
+        pets.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
     public async Task PetStoreService_GetAvailablePetsByCategory()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).ReturnsAsync(_mockPets);
+        mockedPets.Setup(svc => svc.GetAvailablePets()).ReturnsAsync(_mockPets);
 
         var petStoreController = new PetStoreController(mockedPets.Object);
         var pets = await petStoreController.GetAvailablePetsByCategory();
 
-        Assert.NotEmpty(pets);
-        //assert sorting
+        pets.Should().NotBeNullOrEmpty();
+        pets.Should().BeInAscendingOrder(x => x.Category.Name).And.ThenBeInDescendingOrder(x => x.Name);
     }
 
     [Fact]
@@ -65,7 +66,7 @@ public class PetStoreConsoleAppTest
     public async Task PetStoreService_GetAvailablePetsByCategory_ThrowsExceptionOnError()
     {
         var mockedPets = new Mock<IPetStoreService>();
-        mockedPets.Setup(svc => svc.GetAvailablePetsByCategory()).ThrowsAsync(new Exception("Error"));
+        mockedPets.Setup(svc => svc.GetAvailablePets()).ThrowsAsync(new Exception("Error"));
 
         var petStoreController = new PetStoreController(mockedPets.Object);
 

@@ -27,28 +27,4 @@ internal class PetStoreService : IPetStoreService
         }
 
     }
-
-    public async Task<List<Pet>> GetAvailablePetsByCategory()
-    {
-        var response = await _httpClient.GetAsync("pet/findByStatus?status=available");
-
-        if (response.IsSuccessStatusCode)
-        {
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            List<Pet> pets = JsonConvert.DeserializeObject<List<Pet>>(responseBody);
-
-            pets.ForEach(p =>
-            {
-                p.Name = p.Name?.ToLower();
-                p.Category.Name = p.Category?.Name.ToLower();
-            });
-
-            return pets.OrderBy(p => p.Category?.Name).ThenByDescending(p => p.Name).ToList();
-        }
-        else
-        {
-            throw new Exception("Failed to fetch pets from the API.");
-        }
-    }
 }
