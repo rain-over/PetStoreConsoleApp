@@ -16,4 +16,4 @@
 
 ## ChatGPT Transcript
 
-See Transcript [here]("./Documentation/chatgpt_transcript.html").
+See Transcript [here](https://rain-over.github.io/).
